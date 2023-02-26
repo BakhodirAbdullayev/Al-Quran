@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
-import Home from "./pages/Home";
+import Loader from "./components/Loader/loader";
+import AllSurahs from "./pages/AllSurahs";
 import PrayerTimes from "./pages/PrayerTimes";
 import Surah from "./pages/SingleSurah";
 
@@ -10,9 +11,10 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<h1>home</h1>} />
-          <Route path="/surahs" element={<Home />} />
+          <Route path="/surahs" element={<AllSurahs />} />
           <Route path="/surahs/:id" element={<Surah />} />
           <Route path="/times" element={<PrayerTimes />} />
+          <Route path="/fav" element={<Loader />} />
         </Routes>
       </Layout>
     </div>

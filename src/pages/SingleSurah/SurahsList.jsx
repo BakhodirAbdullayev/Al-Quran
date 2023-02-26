@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { SurahsContext } from "../../utils/SurahsContext";
 import { NavLink } from "react-router-dom";
+import { mobile, first } from "../../styles/responsive";
 
 const Container = styled.div`
   width: 100%;

@@ -16,6 +16,15 @@ const CardsWrapper = styled.div`
   justify-content: space-between;
   gap: 20px;
   grid-template-columns: repeat(4, 1fr);
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 650px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 const Pag = styled.div`
   width: 100%;
@@ -24,7 +33,7 @@ const Pag = styled.div`
   margin-top: 50px;
 `;
 
-const Home = () => {
+const AllSurahs = () => {
   const [forPag, setForPag] = useState([]);
   const [limit, setLimit] = useState(10);
   const [current, setCurrent] = useState(1);
@@ -65,4 +74,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AllSurahs;

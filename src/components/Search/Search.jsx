@@ -2,12 +2,27 @@ import { Form, Input } from "antd";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { Link } from "react-router-dom";
+import Logo from "../../images/quran.png";
 
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  /* display: flex;
-  align-items: center; */
+  display: flex;
+`;
+const TopLogo = styled(Link)`
+  width: 75px;
+  height: 100%;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  background-color: #005036;
+  img {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    object-fit: cover;
+  }
 `;
 const SearchForm = styled.form`
   max-width: 500px;
@@ -65,6 +80,9 @@ const Search = () => {
 
   return (
     <Container>
+      <TopLogo to="/">
+        <img src={Logo} alt="logo" />
+      </TopLogo>
       <SearchForm onSubmit={onFinish}>
         <FormItem name="searchValue" isFocused={isFocused}>
           <Button type="submit">

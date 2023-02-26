@@ -5,6 +5,7 @@ import { HeartFilled } from "@ant-design/icons";
 import { BsShareFill, BsPlayCircle } from "react-icons/bs";
 import { BiLinkAlt } from "react-icons/bi";
 import { SurahsContext } from "../../utils/SurahsContext";
+import { first, mobile } from "../../styles/responsive";
 
 const Container = styled.div`
   width: 100%;
@@ -23,7 +24,7 @@ const Top = styled.div`
   width: 100%;
   display: flex;
   gap: 15px;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   margin: 10px auto;
   font-size: 20px;

@@ -4,14 +4,11 @@ import Navbar from "../Navbar/Navbar";
 import Search from "../Search/Search";
 import ReactAudioPlayer from "react-audio-player";
 import { SurahsContext } from "../../utils/SurahsContext";
+import { mobile, first } from "../../styles/responsive";
 
 const Container = styled.div`
   max-width: 1340px;
-  /* height: 100vh; */
   margin: 0 auto;
-  padding: 0 20px;
-  /* overflow: hidden; */
-  /* position: relative; */
 `;
 const Wrapper = styled.div`
   width: 100%;
@@ -19,15 +16,28 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 const Left = styled.div`
-  width: 80px;
+  min-width: 75px;
   position: sticky;
-  top: 0;
+  top: 75px;
   left: 0;
-  height: ${(p) => (p.bool ? "calc(100vh - 50px)" : "100vh")};
+  height: ${(p) => (p.bool ? "calc(100vh - 125px)" : "calc(100vh - 75px)")};
+  ${mobile({
+    width: "100%",
+    height: 60,
+    position: "fixed",
+    top: "calc(100vh - 60px)",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
+  })}
 `;
 const Right = styled.div`
   width: 100%;
   background-color: #f4f6f8;
+  ${mobile({
+    paddingBottom: 45,
+  })}
 `;
 const Head = styled.div`
   width: 100%;
@@ -46,6 +56,14 @@ const Body = styled.div`
   padding-bottom: 10px;
   /* background-color: #fff; */
   border-radius: 5px;
+  ${first({
+    marginTop: 15,
+  })}
+  ${mobile({
+    margin: "0 auto",
+    marginTop: (p) => (p.playAudio ? "60px" : "15px"),
+    width: "98%",
+  })}
 `;
 const Player = styled.div`
   width: 100%;
@@ -53,7 +71,6 @@ const Player = styled.div`
   height: 50px;
   position: sticky;
   bottom: 0;
-  left: 0;
   right: 0;
   position: fixed;
   left: 50%;
@@ -88,6 +105,9 @@ const Player = styled.div`
       color: red;
     }
   }
+  ${mobile({
+    top: 75,
+  })}
 `;
 
 const Layout = ({ children }) => {
@@ -103,15 +123,15 @@ const Layout = ({ children }) => {
   return (
     <>
       <Container>
+        <Head>
+          <Search />
+        </Head>
         <Wrapper>
           <Left bool={forPlayer}>
             <Navbar />
           </Left>
           <Right>
-            <Head>
-              <Search />
-            </Head>
-            <Body>{children}</Body>
+            <Body playAudio={playAudio}>{children}</Body>
           </Right>
         </Wrapper>
         {playAudio && (

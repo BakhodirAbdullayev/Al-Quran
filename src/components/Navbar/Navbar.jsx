@@ -4,32 +4,26 @@ import { BsClockFill } from "react-icons/bs";
 import { RiHome5Fill } from "react-icons/ri";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
-import Logo from "../../images/quran.png";
+import { mobile, first } from "../../styles/responsive";
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   align-items: center;
   background-color: #fff;
+  ${mobile({
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingTop: 0,
+    borderRadius: "20px 20px 0 0",
+    borderTop: "1px solid #005036",
+  })}
 `;
 
-const NavLogo = styled(Link)`
-  width: 100%;
-  height: 75px;
-  padding: 10px;
-  display: grid;
-  place-items: center;
-  background-color: #005036;
-  img {
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-    object-fit: cover;
-  }
-`;
 const NavbarLinks = styled(Container)`
   gap: 20px;
 `;
@@ -54,9 +48,6 @@ const NavbarLink = styled(NavLink)`
 const Navbar = () => {
   return (
     <Container>
-      <NavLogo to="/">
-        <img src={Logo} alt="logo" />
-      </NavLogo>
       <NavbarLinks>
         <NavbarLink to="/">
           <RiHome5Fill />

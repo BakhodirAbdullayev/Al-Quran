@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Bg from "../../images/symbol.png";
 
 const Container = styled(Link)`
   display: flex;
@@ -18,7 +19,7 @@ const Container = styled(Link)`
 const Left = styled.div`
   width: 70px;
   height: 70px;
-  background-image: url("./symbol.png");
+  background-image: url(${(p) => Bg});
   background-size: cover;
   background-position: center;
 
