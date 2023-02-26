@@ -25,7 +25,7 @@ const Left = styled.div`
     width: "100%",
     height: 60,
     position: "fixed",
-    top: "calc(100vh - 60px)",
+    top: "calc(100vh - 120px)",
     // bottom: 0,
     left: 0,
     right: 0,
