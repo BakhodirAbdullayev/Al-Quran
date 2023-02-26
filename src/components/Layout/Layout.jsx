@@ -26,7 +26,7 @@ const Left = styled.div`
     height: 60,
     position: "fixed",
     top: "calc(100vh - 60px)",
-    bottom: 0,
+    // bottom: 0,
     left: 0,
     right: 0,
     zIndex: 999,
@@ -111,14 +111,8 @@ const Player = styled.div`
 `;
 
 const Layout = ({ children }) => {
-  const { forPlayer, audioSurah, setForPlayer } = useContext(SurahsContext);
-  const [playAudio, setPlayAudio] = useState(null);
-
-  useEffect(() => {
-    audioSurah &&
-      forPlayer &&
-      setPlayAudio(...audioSurah.filter((a) => a.number == forPlayer.surahNum));
-  }, [forPlayer, audioSurah]);
+  const { forPlayer, audioSurah, setForPlayer, playAudio, setPlayAudio } =
+    useContext(SurahsContext);
 
   return (
     <>

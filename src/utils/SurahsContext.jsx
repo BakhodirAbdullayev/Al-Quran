@@ -10,6 +10,13 @@ const SurahsContextProvider = ({ children }) => {
   const [lang, setLang] = useState(localStorage.getItem("lang") || "eng");
   const [forPlayer, setForPlayer] = useState(null);
   const [hafiz, setHafiz] = useState("ar.alafasy");
+  const [playAudio, setPlayAudio] = useState(null);
+
+  useEffect(() => {
+    audioSurah &&
+      forPlayer &&
+      setPlayAudio(...audioSurah.filter((a) => a.number == forPlayer.surahNum));
+  }, [forPlayer, audioSurah]);
 
   useEffect(() => {
     instance.get("/surah").then((r) => setSurah(r.data.data));
@@ -34,6 +41,8 @@ const SurahsContextProvider = ({ children }) => {
         setAudioSurah,
         forPlayer,
         setForPlayer,
+        playAudio,
+        setPlayAudio,
       }}
     >
       {children}

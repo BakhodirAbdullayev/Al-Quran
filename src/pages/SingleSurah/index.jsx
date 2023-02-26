@@ -67,6 +67,10 @@ const Center = styled.div`
   @media screen and (max-width: 780px) {
     width: 100%;
   }
+  ${mobile({
+    maxHeight: (p) =>
+      p.playAudio ? "calc(100vh - 250px)" : "calc(100vh - 190px)",
+  })}
   &::-webkit-scrollbar {
     width: 6px; /* width of the entire scrollbar */
   }
@@ -137,7 +141,7 @@ const SettingsBtn = styled.button`
 
 const Surah = () => {
   const { id } = useParams();
-  const { forPlayer } = useContext(SurahsContext);
+  const { forPlayer, playAudio } = useContext(SurahsContext);
   const [stBool, setStBool] = useState(false);
   const [lstBool, setLstBool] = useState(false);
 
@@ -163,7 +167,7 @@ const Surah = () => {
         <Left bool={forPlayer} lstBool={lstBool}>
           <SurahsList />
         </Left>
-        <Center bool={forPlayer}>
+        <Center bool={forPlayer} playAudio={playAudio}>
           <Ayahs surahId={id} />
         </Center>
         <Right>
