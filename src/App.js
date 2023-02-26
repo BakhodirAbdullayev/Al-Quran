@@ -10,7 +10,12 @@ function App() {
     <div className="App">
       <Layout>
         <Routes>
-          <Route path="/" element={<h1>home</h1>} />
+          <Route
+            path="/"
+            element={
+              <h1 style={{ height: "100vh", background: "#05036" }}>home</h1>
+            }
+          />
           <Route path="/surahs" element={<AllSurahs />} />
           <Route path="/surahs/:id" element={<Surah />} />
           <Route path="/times" element={<PrayerTimes />} />
