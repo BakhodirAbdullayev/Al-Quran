@@ -5,6 +5,7 @@ import { HeartFilled } from "@ant-design/icons";
 import { BsShareFill, BsPlayCircle } from "react-icons/bs";
 import { BiLinkAlt } from "react-icons/bi";
 import { SurahsContext } from "../../utils/SurahsContext";
+import Loader from "../../components/Loader/loader";
 import { first, mobile } from "../../styles/responsive";
 
 const Container = styled.div`
@@ -121,8 +122,7 @@ const Ayahs = ({ surahId }) => {
 
   return (
     <Container>
-      {ayahs &&
-        ayahsAr &&
+      {ayahs && ayahsAr ? (
         ayahs?.ayahs.map((a, i) => (
           <Ayah key={a?.number}>
             <Top>
@@ -146,7 +146,13 @@ const Ayahs = ({ surahId }) => {
                   });
                   setValue(i);
                 }}
-                style={{ color: value == i && "#005036" }}
+                style={{
+                  color:
+                    forPlayer &&
+                    forPlayer.surahNum == ayahs.number &&
+                    forPlayer.ayahNumber == a.numberInSurah &&
+                    "#005036",
+                }}
               >
                 <BsPlayCircle />
               </Play>
@@ -155,7 +161,10 @@ const Ayahs = ({ surahId }) => {
               </Link>
             </Bottom>
           </Ayah>
-        ))}
+        ))
+      ) : (
+        <Loader />
+      )}
     </Container>
   );
 };

@@ -55,9 +55,6 @@ const Navbar = () => {
         <NavbarLink to="/surahs">
           <FaBookOpen />
         </NavbarLink>
-        <NavbarLink to="fav">
-          <FaHeart />
-        </NavbarLink>
         <NavbarLink to="/times">
           <BsClockFill />
         </NavbarLink>

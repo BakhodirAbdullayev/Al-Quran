@@ -8,6 +8,7 @@ import { BsFillSunsetFill, BsFillSunriseFill, BsSunFill } from "react-icons/bs";
 import axios from "axios";
 import { Select, ConfigProvider } from "antd";
 import { first, mobile } from "../../styles/responsive";
+import Loader from "../../components/Loader/loader";
 
 const Container = styled.div`
   width: 100%;
@@ -84,7 +85,7 @@ const Time = styled.div`
     padding: "8px 10px",
   })}
 `;
-const Left = styled.div`
+const Left = styled.span`
   width: 20%;
   height: 100%;
   font-size: 50px;
@@ -250,7 +251,7 @@ const PrayerTimes = () => {
         }
         return i;
       });
-    if ((p == "hufton" && h1 < h3) || (p == "hufton" && m3 > m1)) {
+    if ((p == "hufton" && h1 < h3) || (h1 == h3 && p == "hufton" && m3 > m1)) {
       return true;
     }
     if (
@@ -288,7 +289,9 @@ const PrayerTimes = () => {
             />
           </Region>
         </Settings>
-        {timePray && (
+        {!timePray ? (
+          <Loader />
+        ) : (
           <TimesWrapper>
             <Time
               className={

@@ -5,6 +5,8 @@ import Search from "../Search/Search";
 import ReactAudioPlayer from "react-audio-player";
 import { SurahsContext } from "../../utils/SurahsContext";
 import { mobile, first } from "../../styles/responsive";
+import { AiFillFastBackward, AiFillFastForward } from "react-icons/ai";
+import { HiXMark } from "react-icons/hi2";
 
 const Container = styled.div`
   max-width: 1340px;
@@ -67,8 +69,9 @@ const Body = styled.div`
 `;
 const Player = styled.div`
   width: 100%;
-  max-width: 1300px;
+  max-width: 1340px;
   height: 50px;
+  overflow: hidden;
   position: sticky;
   bottom: 0;
   right: 0;
@@ -77,18 +80,24 @@ const Player = styled.div`
   transform: translateX(-50%);
   background-color: #5da59b;
   .audio {
-    width: 100%;
+    width: calc(100% + 100px);
+    margin-left: -50px;
     height: 100%;
+    outline: none;
     &::-webkit-media-controls-panel {
-      background-color: #5da59b;
-      border-color: #5da59b;
+      background-color: #005036;
       border-radius: 0;
+      outline: none;
       height: 100%;
+      padding: 0 50px;
+      padding-right: 60px;
+      /* padding-right: 90px; */
     }
     &::-webkit-media-controls-play-button {
       background-color: #fff;
       border-radius: 50%;
-      color: #fff important !important;
+      margin-right: 40px;
+      margin-left: 54px;
     }
     &::-webkit-media-controls-current-time-display {
       color: #fff;
@@ -102,6 +111,17 @@ const Player = styled.div`
       padding: 3px 2px;
       margin-left: 10px;
       margin-right: 10px;
+      width: calc(100% - 800px);
+    }
+    &::-webkit-media-controls-volume-slider {
+      padding: 3px 2px;
+      margin-top: 11px;
+      border-radius: 3px;
+      background-color: #f2f4f6;
+    }
+    &::-webkit-media-controls-controls-button {
+      box-shadow: 0 0 0 2px red;
+      background: red;
       color: red;
     }
   }
@@ -109,10 +129,62 @@ const Player = styled.div`
     top: 75,
   })}
 `;
+const Prew = styled.button`
+  position: absolute;
+  left: 20px;
+  top: 25px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 22px;
+  color: #000;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+`;
+const Next = styled(Prew)`
+  left: 90px;
+`;
+const Delete = styled(Prew)`
+  left: calc(100% - 40px);
+`;
 
 const Layout = ({ children }) => {
-  const { forPlayer, audioSurah, setForPlayer, playAudio, setPlayAudio } =
+  const { forPlayer, surah, setForPlayer, playAudio, setPlayAudio } =
     useContext(SurahsContext);
+
+  const searchSurah = (i, arr) => {
+    const finded = arr.find((e) => e.number == i + 1);
+    return finded.numberOfAyahs;
+  };
+
+  const nextAudio = () => {
+    setForPlayer((e) => {
+      if (forPlayer.ayahNumber < forPlayer.totalAyahs) {
+        return { ...e, ayahNumber: e.ayahNumber + 1 };
+      } else if (forPlayer.ayahNumber == forPlayer.totalAyahs) {
+        if (e.surahNum < 114) {
+          return {
+            surahNum: e.surahNum + 1,
+            ayahNumber: 1,
+            totalAyahs: searchSurah(e?.surahNum, surah),
+          };
+        } else return e;
+      } else return e;
+    });
+  };
+  const lastAudio = () => {
+    setForPlayer((e) => {
+      if (forPlayer.ayahNumber > 1) {
+        return { ...e, ayahNumber: e.ayahNumber - 1 };
+      } else return e;
+    });
+  };
 
   return (
     <>
@@ -130,19 +202,22 @@ const Layout = ({ children }) => {
         </Wrapper>
         {playAudio && (
           <Player>
+            <Prew onClick={() => lastAudio()}>
+              <AiFillFastBackward />
+            </Prew>
+            <Next onClick={() => nextAudio()}>
+              <AiFillFastForward />
+            </Next>
             <ReactAudioPlayer
               className="audio"
               src={playAudio.ayahs[forPlayer.ayahNumber - 1].audio}
               autoPlay
               controls={true}
-              onEnded={() => {
-                setForPlayer((e) => {
-                  if (forPlayer.ayahNumber < forPlayer.totalAyahs) {
-                    return { ...e, ayahNumber: e.ayahNumber + 1 };
-                  } else return e;
-                });
-              }}
+              onEnded={() => nextAudio()}
             />
+            {/* <Delete onClick={() => setPlayAudio(null)}>
+              <HiXMark />
+            </Delete> */}
           </Player>
         )}
       </Container>
