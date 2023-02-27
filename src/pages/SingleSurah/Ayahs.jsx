@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { instance } from "../../utils/axios";
 import { HeartFilled } from "@ant-design/icons";
+import { Modal } from "antd";
 import { BsShareFill, BsPlayCircle } from "react-icons/bs";
-import { BiLinkAlt } from "react-icons/bi";
+import { GiKneeling } from "react-icons/gi";
 import { SurahsContext } from "../../utils/SurahsContext";
 import Loader from "../../components/Loader/loader";
-import { first, mobile } from "../../styles/responsive";
 
 const Container = styled.div`
   width: 100%;
@@ -79,16 +79,19 @@ const Play = styled.button`
   color: #a5bcc6;
   font-size: 20px;
 `;
-const Link = styled.button`
+const Sajda = styled.button`
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
   color: #a5bcc6;
   font-size: 20px;
+  .active {
+    color: #005036;
+  }
 `;
 
-const Ayahs = ({ surahId }) => {
+const Ayahs = ({ surahId, forScrool }) => {
   const [ayahsAr, setAyahsAr] = useState(null);
   const [ayahsUz, setAyahsUz] = useState(null);
   const [ayahsEng, setAyahsEng] = useState(null);
@@ -98,6 +101,19 @@ const Ayahs = ({ surahId }) => {
 
   const [ayahs, setAyahs] = useState(null);
   const { lang, setForPlayer, forPlayer } = useContext(SurahsContext);
+
+  const warning = () => {
+    Modal.warning({
+      title: "Please be aware of this",
+      content:
+        "If this button is in the active state, then it is a verse of SAJDA",
+    });
+  };
+  const toTop = () => {
+    forScrool.current?.firstElementChild?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     instance.get(`/surah/${surahId}`).then((r) => setAyahsAr(r.data.data));
@@ -109,7 +125,8 @@ const Ayahs = ({ surahId }) => {
       .then((r) => setAyahsEng(r.data.data));
     instance
       .get(`/surah/${surahId}/ru.kuliev`)
-      .then((r) => setAyahsRu(r.data.data));
+      .then((r) => setAyahsRu(r.data.data))
+      .then(() => toTop());
   }, [surahId]);
 
   useEffect(() => {
@@ -121,7 +138,7 @@ const Ayahs = ({ surahId }) => {
   }, [lang, ayahsAr, ayahsUz, ayahsRu, ayahsEng]);
 
   return (
-    <Container>
+    <Container ref={forScrool}>
       {ayahs && ayahsAr ? (
         ayahs?.ayahs.map((a, i) => (
           <Ayah key={a?.number}>
@@ -156,9 +173,9 @@ const Ayahs = ({ surahId }) => {
               >
                 <BsPlayCircle />
               </Play>
-              <Link>
-                <BiLinkAlt />
-              </Link>
+              <Sajda onClick={warning}>
+                <GiKneeling className={a.sajda && "active"} />
+              </Sajda>
             </Bottom>
           </Ayah>
         ))

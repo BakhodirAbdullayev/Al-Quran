@@ -61,7 +61,7 @@ const NameT = styled.div`
   color: #a5bcc6;
 `;
 
-const SurahsList = () => {
+const SurahsList = ({ forScrool }) => {
   const { surah } = useContext(SurahsContext);
 
   return (

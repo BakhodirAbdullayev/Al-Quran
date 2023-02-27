@@ -65,64 +65,52 @@ const SurahsSettings = ({ stBool }) => {
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Select: {
-            colorPrimary: "#005036",
-            colorPrimaryHover: "#005036",
-            colorBgTextHover: "#b4c8d2",
-          },
-        },
-      }}
-    >
-      <Wrapper>
-        <Container stBool={stBool}>
-          <Head>Settings</Head>
-          <Accordion>
-            <Collapse accordion bordered={false} size="middle">
-              <Panel header={"Reading settings"} key="1">
-                <Lang>
-                  <Title>Language</Title>
-                  <Select
-                    defaultValue={lang}
-                    style={{
-                      width: "100%",
-                    }}
-                    onChange={handleChange}
-                    options={[
-                      {
-                        value: "eng",
-                        label: "English",
-                      },
-                      {
-                        value: "uz",
-                        label: "Uzbek",
-                      },
-                      {
-                        value: "ru",
-                        label: "Russian",
-                      },
-                    ]}
-                  />
-                </Lang>
-              </Panel>
-              <Panel header="Audio settings" key="2">
-                <Lang>
-                  <Title>Hafiz</Title>
-                  <Select
-                    defaultValue={hafiz}
-                    style={{ width: "100%" }}
-                    onChange={handleHafizChange}
-                    options={options}
-                  />
-                </Lang>
-              </Panel>
-            </Collapse>
-          </Accordion>
-        </Container>
-      </Wrapper>
-    </ConfigProvider>
+    <Wrapper>
+      <Container stBool={stBool}>
+        <Head>Settings</Head>
+        <Accordion>
+          <Collapse accordion bordered={false} size="middle">
+            <Panel header={"Reading settings"} key="1">
+              <Lang>
+                <Title>Language</Title>
+                <Select
+                  defaultValue={lang}
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={handleChange}
+                  options={[
+                    {
+                      value: "en",
+                      label: "English",
+                    },
+                    {
+                      value: "uz",
+                      label: "Uzbek",
+                    },
+                    {
+                      value: "ru",
+                      label: "Russian",
+                    },
+                  ]}
+                />
+              </Lang>
+            </Panel>
+            <Panel header="Audio settings" key="2">
+              <Lang>
+                <Title>Hafiz</Title>
+                <Select
+                  defaultValue={hafiz}
+                  style={{ width: "100%" }}
+                  onChange={handleHafizChange}
+                  options={options}
+                />
+              </Lang>
+            </Panel>
+          </Collapse>
+        </Accordion>
+      </Container>
+    </Wrapper>
   );
 };
 

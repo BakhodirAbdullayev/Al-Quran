@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import SurahsList from "./SurahsList";
@@ -122,6 +122,12 @@ const ListsBtn = styled.button`
   cursor: pointer;
   color: ${(p) => p.stBool && "#005036"};
   filter: ${(p) => (p.stBool ? "drop-shadow(0 0 1px #005036)" : "none")};
+  svg {
+    display: none;
+    @media screen and (max-width: 700px) {
+      display: block;
+    }
+  }
 `;
 const SettingsBtn = styled.button`
   width: 30px;
@@ -145,13 +151,15 @@ const Surah = () => {
   const [stBool, setStBool] = useState(false);
   const [lstBool, setLstBool] = useState(false);
 
+  const forScrool = useRef(null);
+
   return (
     <>
       <SubNav>
         <ListsBtn
           lstBool={lstBool}
           onClick={() => setLstBool((e) => !e)}
-          disabled={stBool}
+          disabled={window.innerWidth > 700 && stBool}
         >
           <FaRegListAlt />
         </ListsBtn>
@@ -165,10 +173,10 @@ const Surah = () => {
       </SubNav>
       <Container>
         <Left bool={forPlayer} lstBool={lstBool}>
-          <SurahsList />
+          <SurahsList forScrool={forScrool} />
         </Left>
         <Center bool={forPlayer} playAudio={playAudio}>
-          <Ayahs surahId={id} />
+          <Ayahs surahId={id} forScrool={forScrool} />
         </Center>
         <Right>
           <SurahsSettings stBool={stBool} />

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Pagination, ConfigProvider } from "antd";
-import { instance } from "../../utils/axios";
 import Card from "./Card";
 import { SurahsContext } from "../../utils/SurahsContext";
 
@@ -55,21 +54,10 @@ const AllSurahs = () => {
           <Card data={s} key={s.number} />
         ))}
       </CardsWrapper>
-      <ConfigProvider
-        theme={{
-          components: {
-            Pagination: {
-              colorPrimary: "#005036",
-              colorPrimaryHover: "#005036",
-              colorBgTextHover: "#b4c8d2",
-            },
-          },
-        }}
-      >
-        <Pag>
-          <Pagination current={current} onChange={onChange} total={114} />
-        </Pag>
-      </ConfigProvider>
+
+      <Pag>
+        <Pagination current={current} onChange={onChange} total={114} />
+      </Pag>
     </Container>
   );
 };

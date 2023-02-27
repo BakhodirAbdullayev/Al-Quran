@@ -5,7 +5,6 @@ import { mobile, first } from "../../styles/responsive";
 
 const Container = styled.div`
   width: 100%;
-  background-color: #fff;
   padding: 15px;
 `;
 const About = styled.div`
@@ -14,6 +13,9 @@ const About = styled.div`
   gap: 40px;
 `;
 const AboutItem = styled.div`
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px 15px;
   display: flex;
   gap: 40px;
   align-items: center;
@@ -27,6 +29,7 @@ const Icon = styled.div`
   color: #005036;
   display: grid;
   place-items: center;
+  filter: drop-shadow(0 0 2px #5da59b) drop-shadow(0 0 3px #005036);
   ${first({
     fontSize: "130px",
   })}
@@ -34,11 +37,9 @@ const Icon = styled.div`
 const Text = styled.p`
   font-size: 16px;
   text-align: justify;
-  span {
-    display: block;
-    padding: 5px;
-  }
+
   p {
+    margin-top: 8px;
     ${first({
       display: "none",
     })}
@@ -60,7 +61,6 @@ const Home = () => {
             an-Nabawi was the third mosque built in the history of Islam and is
             now one of the largest mosques in the world. It is the
             second-holiest site in Islam, after Masjid al-Haram in Mecca.
-            <span></span>
             <p>
               The site was originally adjacent to Muhammad's house; he settled
               there after his Hijra (emigration) to Medina in 622 CE. He shared
@@ -86,7 +86,6 @@ const Home = () => {
             determines the qiblah (direction of prayer). Wherever they are in
             the world, Muslims are expected to face the Kaaba when performing
             Salah (Islamic prayer).
-            <span></span>
             <p>
               One of the Five Pillars of Islam requires every Muslim who is able
               to do so to perform the Hajj (Greater Pilgrimage) at least once in
@@ -107,7 +106,6 @@ const Home = () => {
             of Allah (God)". This book is different from other religious texts
             in that it is believed to be written directly by God, through the
             prophet Muhammad. Some Muslims call it the Final Testament.
-            <span></span>
             <p>
               {" "}
               It has been written and read only in Arabic for more than 1,400

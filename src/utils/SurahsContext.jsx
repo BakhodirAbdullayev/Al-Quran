@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { createContext, useState, useEffect } from "react";
 import { instance } from "./axios";
 
@@ -7,7 +6,7 @@ export const SurahsContext = createContext(null);
 const SurahsContextProvider = ({ children }) => {
   const [surah, setSurah] = useState(null);
   const [audioSurah, setAudioSurah] = useState(null);
-  const [lang, setLang] = useState(localStorage.getItem("lang") || "eng");
+  const [lang, setLang] = useState(localStorage.getItem("lang") || "en");
   const [forPlayer, setForPlayer] = useState(null);
   const [hafiz, setHafiz] = useState("ar.alafasy");
   const [playAudio, setPlayAudio] = useState(null);
@@ -23,9 +22,10 @@ const SurahsContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://api.alquran.cloud/v1/quran/${hafiz}`)
-      .then((r) => setAudioSurah(r.data.data.surahs));
+    instance
+      .get(`/quran/${hafiz}`)
+      .then((r) => setAudioSurah(r.data.data.surahs))
+      .catch((err) => console.log(err));
     console.log("change hafiz");
   }, [hafiz]);
 

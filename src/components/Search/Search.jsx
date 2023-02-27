@@ -1,9 +1,9 @@
-import { Form, Input } from "antd";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../images/quran.png";
+import { mobile } from "../../styles/responsive";
 
 const Container = styled.div`
   height: 100%;
@@ -26,10 +26,15 @@ const TopLogo = styled(Link)`
 `;
 const SearchForm = styled.form`
   max-width: 500px;
+  width: 80%;
   margin-left: 25px;
   height: 100%;
   display: flex;
   align-items: center;
+  ${mobile({
+    marginRight: "15px",
+    marginLeft: "15px",
+  })}
 `;
 const FormItem = styled.div`
   width: 100%;
@@ -72,10 +77,15 @@ const Button = styled.button`
 const Search = () => {
   const searchRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
+  const navigate = useNavigate();
 
   const onFinish = (e) => {
     e.preventDefault();
-    console.log(searchRef.current.focus());
+    if (searchRef.current?.value) {
+      navigate(`/search?q=${searchRef.current?.value}`);
+      searchRef.current.value = "";
+    }
+    searchRef.current.blur();
   };
 
   return (

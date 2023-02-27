@@ -7,6 +7,7 @@ import { SurahsContext } from "../../utils/SurahsContext";
 import { mobile, first } from "../../styles/responsive";
 import { AiFillFastBackward, AiFillFastForward } from "react-icons/ai";
 import { HiXMark } from "react-icons/hi2";
+import Loader from "../Loader/loader";
 
 const Container = styled.div`
   max-width: 1340px;
@@ -90,14 +91,20 @@ const Player = styled.div`
       outline: none;
       height: 100%;
       padding: 0 50px;
-      padding-right: 60px;
-      /* padding-right: 90px; */
+      padding-right: 90px;
+      ${mobile({
+        paddingLeft: "30px",
+        backgroundColor: "rgba(0, 80, 55, 0.9)",
+      })}
     }
     &::-webkit-media-controls-play-button {
       background-color: #fff;
       border-radius: 50%;
       margin-right: 40px;
       margin-left: 54px;
+      ${mobile({
+        marginRight: 25,
+      })}
     }
     &::-webkit-media-controls-current-time-display {
       color: #fff;
@@ -118,11 +125,6 @@ const Player = styled.div`
       margin-top: 11px;
       border-radius: 3px;
       background-color: #f2f4f6;
-    }
-    &::-webkit-media-controls-controls-button {
-      box-shadow: 0 0 0 2px red;
-      background: red;
-      color: red;
     }
   }
   ${mobile({
@@ -146,9 +148,15 @@ const Prew = styled.button`
   height: 30px;
   width: 30px;
   border-radius: 50%;
+  ${mobile({
+    left: 5,
+  })}
 `;
 const Next = styled(Prew)`
   left: 90px;
+  ${mobile({
+    left: 65,
+  })}
 `;
 const Delete = styled(Prew)`
   left: calc(100% - 40px);
@@ -182,6 +190,14 @@ const Layout = ({ children }) => {
     setForPlayer((e) => {
       if (forPlayer.ayahNumber > 1) {
         return { ...e, ayahNumber: e.ayahNumber - 1 };
+      } else if (forPlayer.ayahNumber == 1) {
+        if (e.surahNum > 1) {
+          return {
+            surahNum: e.surahNum - 1,
+            ayahNumber: 1,
+            totalAyahs: searchSurah(e?.surahNum - 2, surah),
+          };
+        } else return e;
       } else return e;
     });
   };
@@ -215,11 +231,17 @@ const Layout = ({ children }) => {
               controls={true}
               onEnded={() => nextAudio()}
             />
-            {/* <Delete onClick={() => setPlayAudio(null)}>
+            <Delete
+              onClick={() => {
+                setPlayAudio(null);
+                setForPlayer(null);
+              }}
+            >
               <HiXMark />
-            </Delete> */}
+            </Delete>
           </Player>
         )}
+        {/* <Loader /> */}
       </Container>
     </>
   );
