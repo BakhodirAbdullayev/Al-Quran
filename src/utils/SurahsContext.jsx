@@ -26,7 +26,6 @@ const SurahsContextProvider = ({ children }) => {
       .get(`/quran/${hafiz}`)
       .then((r) => setAudioSurah(r.data.data.surahs))
       .catch((err) => console.log(err));
-    console.log("change hafiz");
   }, [hafiz]);
 
   return (
